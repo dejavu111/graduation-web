@@ -1,0 +1,29 @@
+<!-- <view class="container">
+    <view class="question">
+        <view class="question-title">
+            {{ list.title }}
+        </view>
+        <view class="article__desc">
+            <text class="answerer-info flex-item" wx:if="{{ list.siteName }}">{{ list.siteName }}   </text>
+            <text class="answerer-name">{{ list.holdTime }}\n</text>
+            <text class="answerer-des">{{list.location}}</text>
+            <web-view src="{{list.detailUrl}}">原文地址</web-view>
+            <!-- <view class="article__count">
+                <image class="article__icon" src="/image/icon-comt.png"></image>
+                <text>{{ article.comment }}</text>
+                <image class="article__icon" src="/image/icon-priaze.png"></image>
+                <text>{{ article.praise }}</text> -->
+        <!-- </view>
+    </view>
+
+    <view class="answer-content">
+        <text>{{list.content}}
+
+        </text>
+        
+</view>
+
+</view> --> 
+
+<web-view src="{{list.detailUrl}}"></web-view>
+       

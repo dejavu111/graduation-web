@@ -1,0 +1,61 @@
+<!-- <view>
+  <scroll-view scroll-y="true">
+    <view>
+      <block wx:for="{{list}}">
+        <view class="list_item">
+          <text class="title">{{item.title}}\n</text>
+          <text class="location"><text>位置：</text>{{item.location}}\n</text>
+          <text class="date">{{item.date}}</text>
+          <view class="link-column">
+          </view>
+        </view>
+      </block>
+    </view>
+</scroll-view>
+<button type="primary" bindtap='addArea'>添加区域信息</button> -->
+<!-- </view> -->
+
+  <view>
+    <scroll-view class="registration-list" scroll-y="true">
+      <block wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+        <view class="registration-item">
+          <view class="name-item">
+            <view class="item-name">{{item.title}}</view>
+          </view>
+          <view class="detail-item">
+            地点：{{item.location}}
+          </view>
+          <view class="detail-item">
+            时间：{{item.date}}
+          </view>
+          <view class="detail-item">
+            <label>关键词：</label><view class="detail-ground">{{item.keywords}}</view>
+          </view>
+          <view class="item-detail" bindtap="goToDetail" data-id="{{item.uuid}}">查看详情</view>
+        </view>
+        </block>
+    </scroll-view>
+    
+
+  </view>
+  
+  <!-- <cover-view class="modal-container" wx:if="{{isShowModal}}">
+    <cover-view class="modal">
+      <cover-view class="title">请选择您要预约的宝宝</cover-view>
+      <cover-view class="list-container">
+        <block wx:for="{{$Modal$childList}}" wx:for-index="$Modal$index" wx:for-item="$Modal$item" wx:key="$Modal$key">
+          <cover-view class="modal-item" data-id="{{$Modal$item.childID}}" bindtap="$Modal$checkChild">
+            {{$Modal$item.name}}
+            <cover-view class="icon-container">
+              <cover-image src="../img/{{$Modal$currentChildID===$Modal$item.childID?'checked.png':'check.png'}}" class="check-icon check-right"/>
+            </cover-view>
+          </cover-view>
+        </block>
+      </cover-view>
+      <cover-view class="small-btn" bindtap="$Modal$addChild">添加宝宝</cover-view>
+      <cover-view class="small-btn" style="margin-left: 28rpx;" bindtap="$Modal$finish">完成</cover-view>
+    </cover-view>
+    <cover-image src="../img/close.png" class="close-img" bindtap="$Modal$closeModal"/>
+  </cover-view>
+
+ -->

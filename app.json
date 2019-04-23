@@ -1,0 +1,41 @@
+{
+  "pages":[
+    
+    "pages/index/index",
+    "pages/list/list",
+    "pages/logs/logs",
+    "pages/detail/detail",
+    "pages/job/job"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "青科就业",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/2.png",
+        "iconPath": "images/2.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "images/3.png",
+        "iconPath": "images/3.png",
+        "pagePath": "pages/list/list",
+        "text": "宣讲"
+      },
+      {
+        "selectedIconPath": "images/3.png",
+        "iconPath": "images/3.png",
+        "pagePath": "pages/job/job",
+        "text": "职位"
+      }
+    ]
+  }
+}
