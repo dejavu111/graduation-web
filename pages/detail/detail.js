@@ -8,7 +8,7 @@ Page({
     var that = this; // 此处this表示整个页面
     console.log(options)
     wx.request({
-      url: 'http://127.0.0.1:8080/detailInfo/' + options.uuid,
+      url: 'http://188.131.252.159:8080/detailInfo/' + options.uuid,
       method: 'GET',
       dataType: 'json',
       data: {},

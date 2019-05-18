@@ -1,9 +1,9 @@
 
-  <view class="weui-search-bar"> 
+  <view class="weui-search-bar">  
     <view class="weui-search-bar__form"> 
-      <view class="weui-search-bar__box"> 
+      <view class="weui-search-bar__box">  
         <icon class="weui-icon-search_in-box" type="search" size="14"></icon> 
-        <input type="text" class="weui-search-bar__input" placeholder="请输入职位名称" value="{{SearchData.value}}" bindinput='SearchInput' bindconfirm="SearchConfirm" /> 
+        <input type="text" class="weui-search-bar__input" placeholder="请输入职位或地区" value="{{SearchData.value}}" bindinput='SearchInput' bindconfirm="SearchConfirm" /> 
         <!-- <view class="weui-icon-clear" wx:if="{{SearchData.value.length > 0}}" bindtap="SearchClear"> 
           <icon type="clear" size="14"></icon>  -->
         <!-- </view>  -->
@@ -15,8 +15,7 @@
     </view> 
 </view>
 
-
-    <scroll-view class="registration-list" scroll-y="true">
+    <scroll-view class="registration-list" scroll-y="true" style='height:{{scroll_height}}rpx' bindscrolltolower="searchScrollLower">
       <block wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="key">
         <view class="registration-item">
           <view class="name-item">
@@ -34,7 +33,8 @@
           <view wx:if="{{item.jobcompany!=''}}" class="detail-item">
             公司：{{item.jobcompany}}
           </view>
-          
+          <view class="item-detail" bindtap="goToDetail" data-id="{{item.uuid}}">查看详情</view>
+  
           <!-- <view class="item-detail" bindtap="goToDetail" data-id="{{item.uuid}}">查看详情</view> -->
         </view>
         </block>

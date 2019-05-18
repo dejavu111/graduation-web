@@ -7,6 +7,7 @@ Page({
   data: {
     list: [],
     page : 0,
+    pages : 1,
     pagesize : 5,
     hasMoreData: true,
   },
@@ -15,7 +16,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let windowHeight = wx.getSystemInfoSync().windowHeight // 屏幕的高度
+    let windowWidth = wx.getSystemInfoSync().windowWidth // 屏幕的宽度
+    this.setData({
+      scroll_height: windowHeight * 750 / windowWidth  - 30
+    })
   },
 
   /**
@@ -31,8 +36,9 @@ Page({
   onShow: function () {
     // 访问后台，获取区域信息
     var that = this; // 此处this表示整个页面
+    var pages = this.data.pages;
     wx.request({
-      url: 'http://127.0.0.1:8080/listInfo/0',
+      url: 'http://188.131.252.159:8080/listInfo/0',
       method: 'GET',
       dataType: 'json',
       data: {},
@@ -41,10 +47,9 @@ Page({
         "Content-Type": "json"
       },
       success: function (res) {
-  
         var code = res.data.code;
-        console.log("res--" + res.data.code);
-        console.log("data--" + res.data.data);
+        pages = res.data.pages;
+
         if (code == -1) {
           var toastText = '获取数据失败' + res.data.msg;
           wx.showToast({
@@ -59,7 +64,8 @@ Page({
           //   item.date = DateTimeFormate
           // }
           that.setData({
-            list: list
+            list: list,
+            pages: pages
           });
         }
       }
@@ -80,51 +86,102 @@ Page({
 
   },
 
-  /**
+ 
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh(); 
+  },
+   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  searchScrollLower: function () {
     var that = this; // 此处this表示整个页面
-    wx.request({
-      url: 'http://127.0.0.1:8080/listInfo/' + this.data.page+1,
-      method: 'GET',
-      dataType: 'json',
-      data: {},
+    if (this.data.page < this.data.pages-1) {
+      this.data.page = this.data.page + 1
+      wx.request({
+        url: 'http://188.131.252.159:8080/listInfo/' + this.data.page,
+        method: 'GET',
+        dataType: 'json',
+        data: {},
 
-      header: {
-        "Content-Type": "json"
-      },
-      success: function (res) {
+        header: {
+          "Content-Type": "json"
+        },
+        success: function (res) {
 
-        var code = res.data.code;
-        console.log("res--" + res.data.code);
-        console.log("data--" + res.data.data);
-        if (code == -1) {
-          var toastText = '获取数据失败' + res.data.msg;
-          wx.showToast({
-            title: toastText,
-            icon: '',
-            duration: 2000,
-          });
-        } else {
-          var list = JSON.parse(res.data.data);
+          var code = res.data.code;
+          console.log("下拉" + res.data.code);
+          console.log("data--" + res.data.data);
+          if (code == -1) {
+            var toastText = '获取数据失败' + res.data.msg;
+            wx.showToast({
+              title: toastText,
+              icon: '',
+              duration: 2000,
+            });
+          } else {
+            var list = JSON.parse(res.data.data);
 
-          // for(var item in list) {
-          //   item.date = DateTimeFormate
-          // }
-          that.setData({
-            list: list
-          });
+            // for(var item in list) {
+            //   item.date = DateTimeFormate
+            // }
+            that.setData({
+              list: that.data.list.concat(list),
+            });
+          }
         }
-      }
-    })
+      })
+    }
+    
   },
 
   /**
+   * 页面上拉事件的处理函数
+   */
+  searchScrollHigher: function () {
+    var that = this; // 此处this表示整个页面
+    if (this.data.page > 0) {
+      this.data.page = this.data.page - 1;
+      wx.request({
+        url: 'http://188.131.252.159:8080/listInfo/' + this.data.page,
+        method: 'GET',
+        dataType: 'json',
+        data: {},
+
+        header: {
+          "Content-Type": "json"
+        },
+        success: function (res) {
+
+          var code = res.data.code;
+          console.log("上拉" + res.data.code);
+          console.log("data--" + res.data.data);
+          if (code == -1) {
+            var toastText = '获取数据失败' + res.data.msg;
+            wx.showToast({
+              title: toastText,
+              icon: '',
+              duration: 2000,
+            });
+          } else {
+            var list = JSON.parse(res.data.data);
+
+            // for(var item in list) {
+            //   item.date = DateTimeFormate
+            // }
+            that.setData({
+              list: list
+            });
+          }
+        }
+      })
+    }
+
+  },
+   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    
   },
 
   /**
@@ -133,12 +190,7 @@ Page({
   onShareAppMessage: function () {
 
   },
-  addArea: function () {
-    wx.navigateTo({
-      url: '../operation/operation',
-
-    })
-  },
+ 
   goToDetail: function(e) {
     var detailID = e.currentTarget.dataset.id;
     console.log(detailID)
