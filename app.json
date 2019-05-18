@@ -1,17 +1,16 @@
 {
-  "pages":[
-    
+  "pages": [
     "pages/index/index",
     "pages/list/list",
     "pages/logs/logs",
     "pages/detail/detail",
     "pages/job/job"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "青科就业",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "color": "#a9b7b7",
@@ -37,5 +36,6 @@
         "text": "职位"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

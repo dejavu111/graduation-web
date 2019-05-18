@@ -9,7 +9,7 @@ Page({
     console.log(options)
     wx.request({
       url: 'http://188.131.252.159:8080/detailInfo/' + options.uuid,
-      method: 'GET',
+      method: 'POST',
       dataType: 'json',
       data: {},
       success: function (res) {
@@ -34,7 +34,7 @@ Page({
         }
       }
     })
-  },
+  }, 
 
   getArticleDetail(opt) {
     post('v2/news/detail.html', { news_id: opt.id, chid: opt.chid }).then(res => {

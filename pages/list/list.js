@@ -22,6 +22,7 @@ Page({
       scroll_height: windowHeight * 750 / windowWidth  - 30
     })
   },
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -39,7 +40,7 @@ Page({
     var pages = this.data.pages;
     wx.request({
       url: 'http://188.131.252.159:8080/listInfo/0',
-      method: 'GET',
+      method: 'POST',
       dataType: 'json',
       data: {},
 
@@ -60,9 +61,16 @@ Page({
         } else {
           var list = JSON.parse(res.data.data);
     
-          // for(var item in list) {
-          //   item.date = DateTimeFormate
-          // }
+          for (var i = 0; i < list.length; i++ ) {
+            var date = new Date(list[i].date);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            var Y = date.getFullYear() + '-';
+            var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+            var D = date.getDate() + ' ';
+            var h = date.getHours() + ':';
+            var m = date.getMinutes() + ':';
+            var s = date.getSeconds();
+            list[i].date = Y + M + D;
+          }
           that.setData({
             list: list,
             pages: pages
@@ -99,7 +107,7 @@ Page({
       this.data.page = this.data.page + 1
       wx.request({
         url: 'http://188.131.252.159:8080/listInfo/' + this.data.page,
-        method: 'GET',
+        method: 'POST',
         dataType: 'json',
         data: {},
 
@@ -121,9 +129,18 @@ Page({
           } else {
             var list = JSON.parse(res.data.data);
 
-            // for(var item in list) {
-            //   item.date = DateTimeFormate
-            // }
+            for (var i = 0; i < list.length; i++) {
+              console.log(list[i].date)
+              var date = new Date(list[i].date);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+              var Y = date.getFullYear() + '-';
+              var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+              var D = date.getDate() + ' ';
+              var h = date.getHours() + ':';
+              var m = date.getMinutes() + ':';
+              var s = date.getSeconds();
+              // return Y + M + D;
+              list[i].date = Y + M + D;
+            }
             that.setData({
               list: that.data.list.concat(list),
             });
@@ -143,7 +160,7 @@ Page({
       this.data.page = this.data.page - 1;
       wx.request({
         url: 'http://188.131.252.159:8080/listInfo/' + this.data.page,
-        method: 'GET',
+        method: 'POST',
         dataType: 'json',
         data: {},
 
@@ -165,9 +182,18 @@ Page({
           } else {
             var list = JSON.parse(res.data.data);
 
-            // for(var item in list) {
-            //   item.date = DateTimeFormate
-            // }
+            for (var i = 0; i < list.length; i++) {
+              console.log(list[i].date)
+              var date = new Date(list[i].date);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+              var Y = date.getFullYear() + '-';
+              var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+              var D = date.getDate() + ' ';
+              var h = date.getHours() + ':';
+              var m = date.getMinutes() + ':';
+              var s = date.getSeconds();
+              // return Y + M + D;
+              list[i].date = Y + M + D;
+            }
             that.setData({
               list: list
             });
